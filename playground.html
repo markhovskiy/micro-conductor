@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>micro-conductor playground</title>
+        <script src="index.js"></script>
+        <style type="text/css">
+            a {
+                display: block;
+                margin: 1em;
+            }
+        </style>
+    </head>
+    <body>
+        <a href="#plain">#plain</a>
+        <a href="#param/5/and/10">#param/5/and/10</a>
+
+        <script>
+            var router = new Router({
+                'plain': function () {
+                    console.log('plain');
+                },
+                'param/([0-9]+)/and/([0-9]+)': function (first, second) {
+                    console.log('param/' + first + '/and/' + second);
+                }
+            });
+        </script>
+    </body>
+</html>
