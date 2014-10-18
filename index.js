@@ -25,3 +25,9 @@ Router.prototype._go = function () {
         this.notFound.apply(this.context);
     }
 };
+
+// Node export, to run mocha tests
+if (typeof module !== 'undefined' &&
+    typeof module.exports !== 'undefined') {
+    module.exports = Router;
+}

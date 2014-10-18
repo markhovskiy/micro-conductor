@@ -19,9 +19,16 @@ var router = new Router({
     }
 });
 
+// optional
 router.notFound = function () {
     console.log('not found');
 };
 
 router.start();
+```
+
+## running tests
+
+```bash
+npm test
 ```
