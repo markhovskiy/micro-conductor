@@ -5,25 +5,35 @@
         <title>micro-conductor playground</title>
         <script src="index.js"></script>
         <style type="text/css">
-            a {
-                display: block;
-                margin: 1em;
-            }
+            ul { padding: 0; }
+            li { list-style: none; margin: 1em; }
         </style>
     </head>
     <body>
-        <a href="#plain">#plain</a>
-        <a href="#param/5/and/10">#param/5/and/10</a>
+        <ul>
+            <li><a href="#">#</a>(default)</li>
+            <li><a href="#plain">#plain</a></li>
+            <li><a href="#params/5/and/10">#params/5/and/10</a></li>
+        </ul>
 
         <script>
             var router = new Router({
+                '': function () {
+                    console.log('default');
+                },
                 'plain': function () {
                     console.log('plain');
                 },
-                'param/([0-9]+)/and/([0-9]+)': function (first, second) {
-                    console.log('param/' + first + '/and/' + second);
+                'params/([0-9]+)/and/([0-9]+)': function (first, second) {
+                    console.log('params/' + first + '/and/' + second);
                 }
             });
+
+            router.notFound = function () {
+                console.log('not found');
+            };
+
+            router.start();
         </script>
     </body>
 </html>
