@@ -14,7 +14,7 @@ var router = new Router({
     'plain': function () {
         console.log('plain');
     },
-    'params/([0-9]+)/and/([0-9]+)': function (first, second) {
+    'params/([0-9]+)/and/([a-z]+)': function (first, second) {
         console.log('params/' + first + '/and/' + second);
     }
 });
@@ -25,6 +25,22 @@ router.notFound = function () {
 };
 
 router.start();
+```
+
+The `Router()` constructor accepts `context` as an optional second argument:
+
+```js
+var Foo = function () {
+    new Router({
+        'bar': this.bar
+    }, this).start();
+};
+
+Foo.prototype.bar = function () {
+    console.log(this);
+};
+
+var foo = new Foo;
 ```
 
 ## running tests

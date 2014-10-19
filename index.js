@@ -7,6 +7,7 @@ var Router = function (routes, context) {
 Router.prototype.start = function () {
     window.addEventListener('hashchange', this._go.bind(this));
     this._go();
+    return this;
 };
 
 Router.prototype._go = function () {

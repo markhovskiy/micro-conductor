@@ -13,7 +13,7 @@
         <ul>
             <li><a href="#">#</a>(default)</li>
             <li><a href="#plain">#plain</a></li>
-            <li><a href="#params/5/and/10">#params/5/and/10</a></li>
+            <li><a href="#params/5/and/ten">#params/5/and/ten</a></li>
         </ul>
 
         <script>
@@ -24,7 +24,7 @@
                 'plain': function () {
                     console.log('plain');
                 },
-                'params/([0-9]+)/and/([0-9]+)': function (first, second) {
+                'params/([0-9]+)/and/([a-z]+)': function (first, second) {
                     console.log('params/' + first + '/and/' + second);
                 }
             });

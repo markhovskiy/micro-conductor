@@ -52,4 +52,19 @@ describe('Router', function () {
         router._go();
         expect(router.notFound.called).to.be.true;
     });
+
+    it('keeps a context if passed', function () {
+        var Foo = function () {
+            this.router = new Router({
+                'bar': this.bar
+            }, this);
+        };
+
+        Foo.prototype.bar = sinon.spy();
+
+        var foo = new Foo;
+        location.hash = '#bar';
+        foo.router._go();
+        expect(foo.bar.calledOn(foo)).to.be.true;
+    });
 });
