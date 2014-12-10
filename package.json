@@ -5,9 +5,9 @@
   "main": "index.js",
   "dependencies": {},
   "devDependencies": {
-    "chai": "^1.9.2",
-    "mocha": "^1.21.5",
-    "sinon": "^1.10.3"
+    "chai": "~1.10",
+    "mocha": "~2.0",
+    "sinon": "~1.12"
   },
   "scripts": {
     "test": "mocha --reporter spec"

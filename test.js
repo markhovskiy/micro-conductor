@@ -2,11 +2,11 @@ var expect = require('chai').expect,
     sinon = require('sinon'),
     Router = require('./index');
 
-// mocking "Router" dependencies in global context
-window = {
+// mocking "Router" dependencies
+global.window = {
     addEventListener: function() {}
 };
-location = {};
+global.location = {};
 
 describe('Router', function () {
     it('handles default (empty) route', function () {
@@ -62,7 +62,7 @@ describe('Router', function () {
 
         Foo.prototype.bar = sinon.spy();
 
-        var foo = new Foo;
+        var foo = new Foo();
         location.hash = '#bar';
         foo.router._go();
         expect(foo.bar.calledOn(foo)).to.be.true;
