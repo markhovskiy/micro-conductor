@@ -1,7 +1,6 @@
 # micro-conductor
 
-[![Code Climate](https://codeclimate.com/github/markhovskiy/micro-conductor/badges/gpa.svg)](https://codeclimate.com/github/markhovskiy/micro-conductor)
-[![Dependency Status](https://david-dm.org/markhovskiy/micro-conductor.svg)](https://david-dm.org/markhovskiy/micro-conductor)
+[![Dependency Status](https://david-dm.org/markhovskiy/micro-conductor.svg?style=flat)](https://david-dm.org/markhovskiy/micro-conductor)
 
 a routing library for browser
 
