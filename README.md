@@ -1,8 +1,10 @@
 # micro-conductor
 
+[![Build Status](https://api.travis-ci.org/markhovskiy/micro-conductor.svg)](https://travis-ci.org/markhovskiy/micro-conductor)
 [![Dependency Status](https://david-dm.org/markhovskiy/micro-conductor.svg?style=flat)](https://david-dm.org/markhovskiy/micro-conductor)
 
 a routing library for browser
+
 
 ## usage
 
@@ -42,6 +44,7 @@ Foo.prototype.bar = function () {
 
 var foo = new Foo;
 ```
+
 
 ## running tests
 
