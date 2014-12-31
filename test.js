@@ -8,13 +8,27 @@ global.window = {
 };
 global.location = {};
 
-describe('Router', function () {
+describe('unit', function () {
+    it('trims special chars from hashes', function () {
+        var router = new Router();
+
+        expect(router._normalize('')).to.equal('');
+        expect(router._normalize('#')).to.equal('');
+        expect(router._normalize('#plain')).to.equal('plain');
+        expect(router._normalize('#plain/')).to.equal('plain');
+        expect(router._normalize('#plain///')).to.equal('plain');
+        expect(router._normalize('#param/10')).to.equal('param/10');
+        expect(router._normalize('#param/10/')).to.equal('param/10');
+    });
+});
+
+describe('functional', function () {
     it('handles default (empty) route', function () {
         var default_handler = sinon.spy(),
             router = new Router({'': default_handler});
 
         location.hash = '#';
-        router._go();
+        router.start();
         expect(default_handler.called).to.be.true;
     });
 
@@ -23,7 +37,7 @@ describe('Router', function () {
             router = new Router({'plain': plain_handler});
 
         location.hash = '#plain';
-        router._go();
+        router.start();
         expect(plain_handler.called).to.be.true;
     });
 
@@ -36,11 +50,11 @@ describe('Router', function () {
             });
 
         location.hash = '#param/10';
-        router._go();
+        router.start();
         expect(one_param_handler.calledWith('10')).to.be.true;
 
         location.hash = '#params/1/and/two';
-        router._go();
+        router.start();
         expect(two_params_handler.calledWith('1', 'two')).to.be.true;
     });
 
@@ -49,7 +63,7 @@ describe('Router', function () {
 
         router.notFound = sinon.spy();
         location.hash = '#something_not_defined';
-        router._go();
+        router.start();
         expect(router.notFound.called).to.be.true;
     });
 
@@ -64,7 +78,7 @@ describe('Router', function () {
 
         var foo = new Foo();
         location.hash = '#bar';
-        foo.router._go();
+        foo.router.start();
         expect(foo.bar.calledOn(foo)).to.be.true;
     });
 });

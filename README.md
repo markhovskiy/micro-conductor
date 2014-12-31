@@ -39,7 +39,7 @@ var Foo = function () {
 };
 
 Foo.prototype.bar = function () {
-    console.log(this);
+    console.log(this instanceof Foo);
 };
 
 var foo = new Foo;

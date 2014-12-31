@@ -11,14 +11,18 @@
         return this;
     };
 
+    Router.prototype._normalize = function (hash) {
+        return hash.replace(/^#|\/*$/g, '');
+    };
+
     Router.prototype._go = function () {
-        var normalized = location.hash.replace(/^#|\/$/g, ''),
+        var normalized_hash = this._normalize(location.hash),
             matches = null;
 
-        for (var pattern in this.routes) {
-            matches = normalized.match(new RegExp('^' + pattern + '$'));
+        for (var route in this.routes) {
+            matches = normalized_hash.match(new RegExp('^' + route + '$'));
             if (matches) {
-                this.routes[pattern].apply(this.context, matches.slice(1));
+                this.routes[route].apply(this.context, matches.slice(1));
                 return;
             }
         }
