@@ -6,11 +6,15 @@
   "dependencies": {},
   "devDependencies": {
     "chai": "~1.10",
-    "mocha": "~2.0",
-    "sinon": "~1.12"
+    "mocha": "~2.1",
+    "sinon": "~1.12",
+    "istanbul": "~0.3",
+    "coveralls": "~2.11"
   },
   "scripts": {
-    "test": "mocha --reporter spec"
+    "test": "mocha --reporter spec",
+    "coverage": "istanbul cover _mocha test.js",
+    "coveralls": "npm run coverage && coveralls < ./coverage/lcov.info"
   },
   "repository": {
     "type": "git",

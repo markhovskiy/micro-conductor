@@ -2,6 +2,7 @@
 
 [![Build Status](https://api.travis-ci.org/markhovskiy/micro-conductor.svg)](https://travis-ci.org/markhovskiy/micro-conductor)
 [![Dependency Status](https://david-dm.org/markhovskiy/micro-conductor.svg?style=flat)](https://david-dm.org/markhovskiy/micro-conductor)
+[![Coverage Status](https://coveralls.io/repos/markhovskiy/micro-conductor/badge.svg)](https://coveralls.io/r/markhovskiy/micro-conductor)
 
 a routing library for browser
 
