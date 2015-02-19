@@ -27,7 +27,7 @@ describe('functional', function () {
 
         location.hash = '#';
         router.start();
-        expect(default_handler.called).to.be.true();
+        expect(default_handler.calledOnce).to.be.true();
     });
 
     it('handles plain route (without params)', function () {
@@ -36,7 +36,7 @@ describe('functional', function () {
 
         location.hash = '#plain';
         router.start();
-        expect(plain_handler.called).to.be.true();
+        expect(plain_handler.calledOnce).to.be.true();
     });
 
     it('handles parametrized routes', function () {
@@ -47,11 +47,11 @@ describe('functional', function () {
 
         location.hash = '#param/10';
         router.start();
-        expect(one_param_handler.calledWith('10')).to.be.true();
+        expect(one_param_handler.withArgs('10').calledOnce).to.be.true();
 
         location.hash = '#params/1/and/two';
         router.start();
-        expect(two_params_handler.calledWith('1', 'two')).to.be.true();
+        expect(two_params_handler.withArgs('1', 'two').calledOnce).to.be.true();
     });
 
     it('supports special "notFound" handler', function () {
@@ -60,7 +60,7 @@ describe('functional', function () {
         router.notFound = sinon.spy();
         location.hash = '#something_not_defined';
         router.start();
-        expect(router.notFound.called).to.be.true();
+        expect(router.notFound.calledOnce).to.be.true();
     });
 
     it('keeps a context if passed', function () {

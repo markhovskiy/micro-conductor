@@ -11,12 +11,15 @@ a routing library for browser
 
 ```js
 var router = new Router({
+    // "#"
     '': function () {
         console.log('default');
     },
+    // "#plain"
     'plain': function () {
         console.log('plain');
     },
+    // "#params/1/and/two"
     'params/([0-9]+)/and/([a-z]+)': function (first, second) {
         console.log('params/' + first + '/and/' + second);
     }
