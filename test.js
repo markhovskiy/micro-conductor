@@ -1,10 +1,6 @@
-var expect = require('chai').expect,
-    sinon = require('sinon'),
-    Router = require('./index');
-
-// mocking "Router" dependencies
-global.window = {addEventListener: function () {}};
-global.location = {};
+var expect = require('chai').expect;
+var sinon = require('sinon');
+var Router = require('./index');
 
 describe('unit', function () {
     it('trims special chars from hashes', function () {
@@ -21,46 +17,52 @@ describe('unit', function () {
 });
 
 describe('functional', function () {
-    it('handles default (empty) route', function () {
-        var default_handler = sinon.spy(),
-            router = new Router({'': default_handler});
+    before(function () {
+        // mocking "Router" dependencies
+        global.window = {addEventListener: function () {},
+                         location: {}};
+    });
 
-        location.hash = '#';
+    it('handles default (empty) route', function () {
+        var defaultHandler = sinon.spy();
+        var router = new Router({'': defaultHandler});
+
+        window.location.hash = '#';
         router.start();
-        expect(default_handler.calledOnce).to.be.true();
+        expect(defaultHandler.calledOnce).to.equal(true);
     });
 
     it('handles plain route (without params)', function () {
-        var plain_handler = sinon.spy(),
-            router = new Router({'plain': plain_handler});
+        var plainHandler = sinon.spy();
+        var router = new Router({'plain': plainHandler});
 
-        location.hash = '#plain';
+        window.location.hash = '#plain';
         router.start();
-        expect(plain_handler.calledOnce).to.be.true();
+        expect(plainHandler.calledOnce).to.equal(true);
     });
 
     it('handles parametrized routes', function () {
-        var one_param_handler = sinon.spy(),
-            two_params_handler = sinon.spy(),
-            router = new Router({'param/([0-9]+)': one_param_handler,
-                                 'params/([0-9]+)/and/([a-z]+)': two_params_handler});
+        var oneParamHandler = sinon.spy();
+        var twoParamsHandler = sinon.spy();
+        var router = new Router({'param/([0-9]+)': oneParamHandler,
+                                 'params/([0-9]+)/and/([a-z]+)': twoParamsHandler});
 
-        location.hash = '#param/10';
+        window.location.hash = '#param/10';
         router.start();
-        expect(one_param_handler.withArgs('10').calledOnce).to.be.true();
+        expect(oneParamHandler.withArgs('10').calledOnce).to.equal(true);
 
-        location.hash = '#params/1/and/two';
+        window.location.hash = '#params/1/and/two';
         router.start();
-        expect(two_params_handler.withArgs('1', 'two').calledOnce).to.be.true();
+        expect(twoParamsHandler.withArgs('1', 'two').calledOnce).to.equal(true);
     });
 
     it('supports special "notFound" handler', function () {
         var router = new Router();
 
         router.notFound = sinon.spy();
-        location.hash = '#something_not_defined';
+        window.location.hash = '#something_not_defined';
         router.start();
-        expect(router.notFound.calledOnce).to.be.true();
+        expect(router.notFound.calledOnce).to.equal(true);
     });
 
     it('keeps a context if passed', function () {
@@ -72,8 +74,8 @@ describe('functional', function () {
         Foo.prototype.bar = sinon.spy();
 
         var foo = new Foo();
-        location.hash = '#bar';
+        window.location.hash = '#bar';
         foo.router.start();
-        expect(foo.bar.calledOn(foo)).to.be.true();
+        expect(foo.bar.calledOn(foo)).to.equal(true);
     });
 });

@@ -16,11 +16,11 @@
     };
 
     Router.prototype._go = function () {
-        var normalized_hash = this._normalize(location.hash),
-            matches = null;
+        var normalizedHash = this._normalize(window.location.hash);
+        var matches = null;
 
         for (var route in this.routes) {
-            matches = normalized_hash.match(new RegExp('^' + route + '$'));
+            matches = normalizedHash.match(new RegExp('^' + route + '$'));
             if (matches) {
                 this.routes[route].apply(this.context, matches.slice(1));
                 return;
@@ -32,8 +32,7 @@
         }
     };
 
-    if (typeof module !== 'undefined' &&
-        typeof module.exports !== 'undefined') {
+    if (typeof module !== 'undefined' && module.exports) {
         // node (to run mocha tests)
         module.exports = Router;
     } else if (typeof define === 'function' && define.amd) {
