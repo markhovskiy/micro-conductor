@@ -1,17 +1,18 @@
 # micro-conductor
 
-[![Build Status](https://api.travis-ci.org/oleksmarkh/micro-conductor.svg)](https://travis-ci.org/oleksmarkh/micro-conductor)
-[![Dependency Status](https://david-dm.org/oleksmarkh/micro-conductor.svg)](https://david-dm.org/oleksmarkh/micro-conductor)
-[![Coverage Status](https://coveralls.io/repos/oleksmarkh/micro-conductor/badge.svg)](https://coveralls.io/r/oleksmarkh/micro-conductor)
+  [![travis][travis-image]][travis-url]
+  [![deps][deps-image]][deps-url]
+  [![license][license-image]][license-url]
+  [![test coverage][test-coverage-image]][test-coverage-url]
+  ![code size][code-size-image]
 
-a routing library for browser
-
+a routing library for the browser
 
 ## usage
 
 ```js
 var router = new Router({
-    // "#"
+    // "#" <- root
     '': function () {
         console.log('default');
     },
@@ -49,9 +50,18 @@ Foo.prototype.bar = function () {
 var foo = new Foo;
 ```
 
-
 ## running tests
 
 ```bash
-npm test
+$ npm test
 ```
+
+[travis-image]: https://img.shields.io/travis/oleksmarkh/micro-conductor/master.svg?style=flat-square
+[travis-url]: https://travis-ci.org/oleksmarkh/micro-conductor
+[deps-image]: https://img.shields.io/david/oleksmarkh/micro-conductor.svg?style=flat-square
+[deps-url]: https://david-dm.org/oleksmarkh/micro-conductor
+[license-image]: https://img.shields.io/github/license/oleksmarkh/micro-conductor.svg?style=flat-square
+[license-url]: https://github.com/oleksmarkh/micro-conductor/blob/master/LICENSE
+[test-coverage-image]: https://img.shields.io/coveralls/github/oleksmarkh/micro-conductor.svg?style=flat-square
+[test-coverage-url]: https://coveralls.io/github/oleksmarkh/micro-conductor
+[code-size-image]: https://img.shields.io/github/languages/code-size/oleksmarkh/micro-conductor.svg?style=flat-square
