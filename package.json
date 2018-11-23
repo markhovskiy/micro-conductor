@@ -1,16 +1,16 @@
 {
   "name": "micro-conductor",
   "version": "1.0.1",
-  "description": "a routing library for browser",
+  "description": "a routing library for the browser",
   "main": "index.js",
   "dependencies": {},
   "devDependencies": {
-    "chai": "^3.4.1",
-    "coveralls": "^2.11.4",
-    "istanbul": "^0.4.0",
-    "jshint": "^2.8.0",
-    "mocha": "^2.3.4",
-    "sinon": "^1.17.2"
+    "chai": "3.4.1",
+    "coveralls": "2.11.4",
+    "istanbul": "0.4.0",
+    "jshint": "2.8.0",
+    "mocha": "2.3.4",
+    "sinon": "1.17.2"
   },
   "scripts": {
     "lint": "jshint ./*.js",
@@ -20,12 +20,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/markhovskiy/micro-conductor.git"
+    "url": "https://github.com/oleksmarkh/micro-conductor.git"
   },
   "author": "Oleksii Markhovskyi",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/markhovskiy/micro-conductor/issues"
+    "url": "https://github.com/oleksmarkh/micro-conductor/issues"
   },
-  "homepage": "https://github.com/markhovskiy/micro-conductor"
+  "homepage": "https://github.com/oleksmarkh/micro-conductor"
 }
