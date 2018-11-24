@@ -6,30 +6,20 @@
   [![test coverage][test-coverage-image]][test-coverage-url]
   ![code size][code-size-image]
 
-a routing library for the browser
+A routing library for the browser.
+Currently works only with hash-based routes (`#plain`).
 
 ## usage
 
 ```js
-var router = new Router({
-    // "#" <- root
-    '': function () {
-        console.log('default');
-    },
-    // "#plain"
-    'plain': function () {
-        console.log('plain');
-    },
-    // "#params/1/and/two"
-    'params/([0-9]+)/and/([a-z]+)': function (first, second) {
-        console.log('params/' + first + '/and/' + second);
-    }
+const router = new Router({
+  '': () => console.log('root'),
+  'plain': () => console.log('plain'),
+  'params/([0-9]+)/and/([a-z]+)': (first, second) => console.log(`params/${first}/and/${second}`)
 });
 
 // optional
-router.notFound = function () {
-    console.log('not found');
-};
+router.notFound = () => console.log('not found');
 
 router.start();
 ```
@@ -37,23 +27,29 @@ router.start();
 The `Router()` constructor accepts `context` as an optional second argument:
 
 ```js
-var Foo = function () {
-    new Router({
-        'bar': this.bar
-    }, this).start();
+function Foo () {
+  const router = new Router(
+    {
+      'bar': this.bar
+    },
+    this
+  );
+
+  router.start();
 };
 
 Foo.prototype.bar = function () {
-    console.log(this instanceof Foo);
+  console.log(this instanceof Foo);
 };
 
-var foo = new Foo;
+const foo = new Foo();
 ```
 
 ## running tests
 
 ```bash
-$ npm test
+$ yarn install
+$ yarn test
 ```
 
 [travis-image]: https://img.shields.io/travis/oleksmarkh/micro-conductor/master.svg?style=flat-square
