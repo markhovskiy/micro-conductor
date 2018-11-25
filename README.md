@@ -15,7 +15,8 @@ Currently works only with hash-based routes (`#plain`).
 const router = new Router({
   '': () => console.log('root'),
   'plain': () => console.log('plain'),
-  'params/([0-9]+)/and/([a-z]+)': (first, second) => console.log(`params/${first}/and/${second}`)
+  'params/([0-9]+)/and/([a-z]+)': (first, second) => console.log(`params/${first}/and/${second}`),
+  'default-context': () => console.log('context:', router.context),
 });
 
 // optional
@@ -31,29 +32,29 @@ router.stop();
 The `Router()` constructor accepts `context` as an optional second argument:
 
 ```js
-function Foo () {
-  const router = new Router(
-    {
-      'bar': this.bar
-    },
-    this
-  );
+class RouterWrapper {
+  constructor() {
+    this.router = new Router(
+      {
+        'redefined-wrapper-context': () => console.log('context:', this.router.context),
+      },
+      this, // context
+    );
 
-  router.start();
-};
+    this.router.start();
+  }
+}
 
-Foo.prototype.bar = function () {
-  console.log(this instanceof Foo);
-};
-
-const foo = new Foo();
+const routerWrapper = new RouterWrapper();
 ```
 
 ## running tests
 
 ```bash
-$ yarn install
-$ yarn test
+# make sure to "yarn install" first
+$ yarn test      # just tests
+$ yarn coverage  # tests with coverage report
+$ yarn run:dev   # run a static server for manual testing
 ```
 
 [travis-image]: https://img.shields.io/travis/oleksmarkh/micro-conductor/master.svg?style=flat-square

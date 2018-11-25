@@ -18,11 +18,11 @@
     "sinon": "7.1.1"
   },
   "scripts": {
-    "lint": "eslint ./*.{js,mjs}",
-    "test": "mocha --require @babel/register --reporter spec",
+    "lint": "eslint {./src/*.js,./example/*.mjs}",
+    "test": "mocha --require @babel/register --reporter spec ./src/",
     "coverage": "nyc npm test",
     "coveralls": "npm run coverage && nyc report --reporter=text-lcov | coveralls",
-    "run:dev": "python3 ./server.py"
+    "run:dev": "python3 ./example/server.py"
   },
   "repository": {
     "type": "git",

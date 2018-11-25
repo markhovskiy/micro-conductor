@@ -12,6 +12,7 @@ module.exports = {
     'object-curly-spacing': ['error', 'never'],
     'no-console': 'off',
     'quote-props': ['error', 'consistent'],
-    'import/extensions': 'off'
+    'import/extensions': 'off',
+    "import/no-extraneous-dependencies": ["error", {"devDependencies": true}],
   },
 };

@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>micro-conductor playground</title>
+
+    <link rel="stylesheet" href="example.css">
+    <script type="module" src="example.mjs"></script>
+  </head>
+
+  <body>
+    <header>please open <i>devtools</i> and observe console output</header>
+
+    <main>
+      <section>
+        <header>one router</header>
+
+        <ul>
+          <li><a href="#">#</a> (root)</li>
+          <li><a href="#plain">#plain</a></li>
+          <li><a href="#params/5/and/ten">#params/5/and/ten</a></li>
+          <li><a href="#not-found">#not-found</a></li>
+          <li><a href="#default-context">#default-context</a></li>
+        </ul>
+      </section>
+
+      <section>
+        <header>another router (inside a wrapper)</header>
+
+        <ul>
+          <li><a href="#redefined-wrapper-context">#redefined-wrapper-context</a></li>
+        </ul>
+      </section>
+    </main>
+
+    <footer>
+      <ul>
+        <li>
+          <span>GitHub:</span>
+          <a href="https://github.com/oleksmarkh/micro-conductor" target="_blank">micro-conductor</a>
+        </li>
+
+        <li>
+          <span>Twitter:</span>
+          <a href="https://twitter.com/oleksmarkh" target="_blank">@oleksmarkh</a>
+        </li>
+      </ul>
+    </footer>
+  </body>
+</html>

@@ -20,8 +20,8 @@ class StaticServer(BaseHTTPRequestHandler):
 
     if filename[-4:] == '.mjs':
       self.send_header('Content-type', 'application/javascript')
-    # elif filename[-4:] == '.css':
-    #   self.send_header('Content-type', 'text/css')
+    elif filename[-4:] == '.css':
+      self.send_header('Content-type', 'text/css')
     # elif filename[-5:] == '.json':
     #   self.send_header('Content-type', 'application/javascript')
     # elif filename[-3:] == '.js':
