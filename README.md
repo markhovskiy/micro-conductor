@@ -21,7 +21,11 @@ const router = new Router({
 // optional
 router.notFound = () => console.log('not found');
 
-router.start();
+router.start(); // or "router.start(false)" for not navigating immediately
+
+...
+
+router.stop();
 ```
 
 The `Router()` constructor accepts `context` as an optional second argument:

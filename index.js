@@ -1,8 +1,9 @@
 export default class Router {
   constructor(routes, context) {
     this.routes = routes || {};
-    this.context = context;
+    this.context = context || this;
     this.notFound = null;
+    this.navigate = this.navigate.bind(this);
   }
 
   // removes "#" from the beginning and "/"s from the end
@@ -10,9 +11,16 @@ export default class Router {
     return hash.replace(/^#|\/*$/g, '');
   }
 
-  start() {
-    window.addEventListener('hashchange', this.navigate.bind(this));
-    this.navigate();
+  start(toNavigate = true) {
+    window.addEventListener('hashchange', this.navigate);
+
+    if (toNavigate) {
+      this.navigate();
+    }
+  }
+
+  stop() {
+    window.removeEventListener('hashchange', this.navigate);
   }
 
   navigate() {

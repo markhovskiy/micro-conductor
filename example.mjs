@@ -8,3 +8,5 @@ const router = new Router({
 
 router.notFound = () => console.log('not found');
 router.start();
+
+window.router = router;
