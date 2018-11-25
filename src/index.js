@@ -1,3 +1,26 @@
+function getPatternPart(key) {
+  if (key instanceof RegExp) {
+    return key.source;
+  }
+
+  if (key === null || key === undefined) {
+    return '.*';
+  }
+
+  return key;
+}
+
+// @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#Tagged_templates
+export function parse(strings, ...keys) {
+  return keys.reduce(
+    (patternParts, key, index) => patternParts.concat(
+      strings[index],
+      `(${getPatternPart(key)})`,
+    ),
+    [],
+  ).join('');
+}
+
 export default class Router {
   constructor(routes, context) {
     this.routes = routes || {};
@@ -31,13 +54,13 @@ export default class Router {
       const matches = normalizedHash.match(new RegExp(`^${route}$`));
 
       if (matches) {
-        go.apply(this.context, matches.slice(1));
+        go.apply(this.context, matches);
         found = true;
       }
     });
 
     if (!found && typeof this.notFound === 'function') {
-      this.notFound.apply(this.context);
+      this.notFound.call(this.context, normalizedHash);
     }
   }
 }

@@ -56,7 +56,7 @@ describe('Router', () => {
   });
 
   describe('functional', () => {
-    it('handles root (empty) route', () => {
+    it('handles a root (empty) route', () => {
       const rootHandler = spy();
       const router = new Router({
         '': rootHandler,
@@ -67,7 +67,7 @@ describe('Router', () => {
       expect(rootHandler.calledOnce).to.equal(true);
     });
 
-    it('handles plain route (without params)', () => {
+    it('handles a plain route (without params)', () => {
       const plainHandler = spy();
       const router = new Router({
         'plain': plainHandler,
@@ -88,11 +88,15 @@ describe('Router', () => {
 
       window.location.hash = '#param/10';
       router.navigate();
-      expect(oneParamHandler.withArgs('10').calledOnce).to.equal(true);
+      expect(oneParamHandler.withArgs('param/10', '10').calledOnce).to.equal(true);
 
       window.location.hash = '#params/1/and/two';
       router.navigate();
-      expect(twoParamsHandler.withArgs('1', 'two').calledOnce).to.equal(true);
+      expect(twoParamsHandler.withArgs('params/1/and/two', '1', 'two').calledOnce).to.equal(true);
+    });
+
+    it.skip('handles parsed routes', () => {
+      // @todo: write a set of test cases against different keys in parsed routes
     });
 
     it('supports special "notFound" handler', () => {

@@ -7,6 +7,7 @@ module.exports = {
   },
 
   rules: {
+    'max-len': ['error', 120],
     'arrow-parens': ['error', 'always'],
     'consistent-return': 'off',
     'object-curly-spacing': ['error', 'never'],
