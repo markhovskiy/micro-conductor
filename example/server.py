@@ -1,47 +1,49 @@
 #!/usr/bin/env python3
 
-# taken from https://code-maven.com/static-server-in-python
-from http.server import HTTPServer, BaseHTTPRequestHandler
 import os
+from http.server import HTTPServer, BaseHTTPRequestHandler
 
 
 class StaticServer(BaseHTTPRequestHandler):
   def do_GET(self):
     root = os.path.dirname(os.path.abspath(__file__))
+    filename = os.path.join(root, 'example.html' if self.path == '/' else self.path[1:])
+    _, ext = os.path.splitext(filename)
 
-    # print(self.path)
+    print('path:', self.path)
+    print('filename:', filename)
+    print('ext:', ext)
 
-    if self.path == '/':
-      filename = root + '/example.html'
-    else:
-      filename = root + self.path
+    if (not os.path.isfile(filename)):
+      self.send_error(404, 'file not found: {}'.format(self.path))
+      return
 
     self.send_response(200)
-
-    if filename[-4:] == '.mjs':
-      self.send_header('Content-type', 'application/javascript')
-    elif filename[-4:] == '.css':
-      self.send_header('Content-type', 'text/css')
-    # elif filename[-5:] == '.json':
-    #   self.send_header('Content-type', 'application/javascript')
-    # elif filename[-3:] == '.js':
-    #   self.send_header('Content-type', 'application/javascript')
-    # elif filename[-4:] == '.ico':
-    #   self.send_header('Content-type', 'image/x-icon')
-    else:
-      self.send_header('Content-type', 'text/html')
-
+    self.send_header('Content-type', get_content_type(ext))
     self.end_headers()
 
     with open(filename, 'rb') as fh:
-      html = fh.read()
-      # html = bytes(html, 'utf8')
-      self.wfile.write(html)
+      self.wfile.write(fh.read())
+
+
+def get_content_type(ext):
+  if ext in ['.js', '.mjs', '.json']:
+    return 'application/javascript'
+
+  if ext == '.css':
+    return 'text/css'
+
+  if ext == '.ico':
+    return 'image/x-icon'
+
+  return 'text/html'
+
 
 def run(server_class=HTTPServer, handler_class=StaticServer, port=8000):
   server_address = ('', port)
   httpd = server_class(server_address, handler_class)
-  print('Starting httpd on port {}'.format(port))
+  print('Starting httpd on http://localhost:{}'.format(port))
   httpd.serve_forever()
+
 
 run()

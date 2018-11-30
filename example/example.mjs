@@ -3,39 +3,39 @@ import Router, {parse} from './index.mjs';
 const router = new Router({
   // "#"
   '': (route) => (
-    // "Router route:  (root)"
-    console.log(router.constructor.name, 'route:', route, '(root)')
+    console.log(`route: "${route}" (root)`)
+    // route: "" (root)
   ),
 
   // "#plain"
   'plain': (route) => (
-    // "Router route: plain"
-    console.log(router.constructor.name, 'route:', route)
+    console.log(`route: "${route}"`)
+    // route: "plain"
   ),
 
   // "#params/50/and/ten"
   'params/([0-9]+)/and/([a-z]+)': (route, ...keys) => (
-    // "Router route: params/50/and/ten keys: 50 ten"
-    console.log(router.constructor.name, 'route:', route, 'keys:', ...keys)
+    console.log(`route: "${route}", keys: ${JSON.stringify(keys)}`)
+    // route: "params/50/and/ten", keys: ["50","ten"]
   ),
 
   // "#parse/1/and/two/and/3/and/Four/and/whatever"
   [parse`parse/${1}/and/${'two'}/and/${/[0-9]+/}/and/${/[a-z,A-Z]+/}/and/${null}`]: (route, ...keys) => (
-    // "Router route: parse/1/and/two/and/3/and/Four/and/whatever keys: 1 two 3 Four whatever"
-    console.log(router.constructor.name, 'route:', route, 'keys:', ...keys)
+    console.log(`route: "${route}", keys: ${JSON.stringify(keys)}`)
+    // route: "parse/1/and/two/and/3/and/Four/and/whatever", keys: ["1","two","3","Four","whatever"]
   ),
 
   // "#default-context"
   'default-context': (route) => (
-    // "Router route: default-context context: Router {routes: {…}, context: Router, notFound: ƒ, navigate: ƒ}"
-    console.log(router.constructor.name, 'route:', route, 'context:', router.context)
+    console.log(`route: "${route}", context: ${router.context.constructor.name}`)
+    // route: "default-context", context: Router
   ),
 });
 
-// "#not-found"
+// "#non-existing-route"
 router.notFound = (route) => (
-  // "Router route: not-found (not found)"
-  console.log(router.constructor.name, 'route:', route, '(not found)')
+  console.log(`route: "${route}" (not found)`)
+  // route: "non-existing-route" (not found)
 );
 
 router.start();
@@ -46,8 +46,8 @@ class RouterWrapper {
       {
         // "#redefined-wrapper-context"
         'redefined-wrapper-context': (route) => (
-          // "RouterWrapper route: redefined-wrapper-context context: RouterWrapper {router: Router}"
-          console.log(this.constructor.name, 'route:', route, 'context:', this.router.context)
+          console.log(`route: "${route}", context: ${this.router.context.constructor.name}`)
+          // route: "redefined-wrapper-context", context: RouterWrapper
         ),
       },
       this, // context
