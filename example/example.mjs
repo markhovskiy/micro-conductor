@@ -42,18 +42,46 @@ router.start();
 
 class RouterWrapper {
   constructor() {
-    this.router = new Router(
+    const r1 = new Router(
       {
-        // "#redefined-wrapper-context"
-        'redefined-wrapper-context': (route) => (
-          console.log(`route: "${route}", context: ${this.router.context.constructor.name}`)
-          // route: "redefined-wrapper-context", context: RouterWrapper
-        ),
+        // "#original-context-fat-arrow-function"
+        'original-context-fat-arrow-function': (route) => {
+          console.log(`route: "${route}"`);
+          console.log(`current context: ${this.constructor.name}`);      // RouterWrapper
+          console.log(`router context: ${r1.context.constructor.name}`); // Router
+        },
+
+        // "#original-context-regular-function"
+        'original-context-regular-function': function (route) {
+          console.log(`route: "${route}"`);
+          console.log(`current context: ${this.constructor.name}`);      // Router
+          console.log(`router context: ${r1.context.constructor.name}`); // Router
+        },
       },
-      this, // context
+      // context is not redefined
     );
 
-    this.router.start();
+    const r2 = new Router(
+      {
+        // "#redefined-context-fat-arrow-function"
+        'redefined-context-fat-arrow-function': (route) => {
+          console.log(`route: "${route}"`);
+          console.log(`current context: ${this.constructor.name}`);      // RouterWrapper
+          console.log(`router context: ${r2.context.constructor.name}`); // RouterWrapper
+        },
+
+        // "#redefined-context-regular-function"
+        'redefined-context-regular-function': function (route) {
+          console.log(`route: "${route}"`);
+          console.log(`current context: ${this.constructor.name}`);      // RouterWrapper
+          console.log(`router context: ${r2.context.constructor.name}`); // RouterWrapper
+        },
+      },
+      this, // context of "RouterWrapper"
+    );
+
+    r1.start();
+    r2.start();
   }
 }
 

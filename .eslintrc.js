@@ -7,13 +7,15 @@ module.exports = {
   },
 
   rules: {
-    'max-len': ['error', 120],
     'arrow-parens': ['error', 'always'],
     'consistent-return': 'off',
-    'object-curly-spacing': ['error', 'never'],
-    'no-console': 'off',
-    'quote-props': ['error', 'consistent'],
+    'func-names': 'off',
     'import/extensions': 'off',
-    "import/no-extraneous-dependencies": ["error", {"devDependencies": true}],
+    'import/no-extraneous-dependencies': ['error', {'devDependencies': true}],
+    'max-len': ['error', 120],
+    'no-console': 'off',
+    'no-multi-spaces': 'off',
+    'object-curly-spacing': ['error', 'never'],
+    'quote-props': ['error', 'consistent'],
   },
 };

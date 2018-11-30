@@ -6,11 +6,26 @@
   [![test coverage][test-coverage-image]][test-coverage-url]
   ![code size][code-size-image]
 
-A routing library for the browser.
-Currently works only with hash-based routes (`#plain`).
-Supports RegExp parametrization in plain strings and [tagged templates](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#Tagged_templates).
+A tiny routing library for the browser. Simple configuration, No dependencies.
 
-## usage
+## Features
+
+- [x] RegExp parametrization in plain strings - every `route` is wrapped into `new RegExp(`^${route}$`)` for matching.
+- [x] RegExp and wildcard parametrization in [tagged templates](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#Tagged_templates) - any non-empty placeholder translates into `(.*)` matching group using `parse` template.
+- [ ] Simple wildcard parametrization using `wildcard` template.
+- [x] Optional context preservation. If not redefined, context of the `Router` instance is used.
+
+## Limitations
+
+* Works only with hash-based routes (`#plain`).
+* No nesting for routes.
+* No composition for routers. It's possible to instantiate multiple instances, but each one will listed for the `hashchange` event individually.
+
+## Installation
+
+TBD.
+
+## Usage
 
 ```js
 const router = new Router({
@@ -63,31 +78,59 @@ The `Router()` constructor accepts `context` as an optional second argument:
 ```js
 class RouterWrapper {
   constructor() {
-    this.router = new Router(
+    const r1 = new Router(
       {
-        // "#redefined-wrapper-context"
-        'redefined-wrapper-context': (route) => (
-          console.log(`route: "${route}", context: ${this.router.context.constructor.name}`)
-          // route: "redefined-wrapper-context", context: RouterWrapper
-        ),
+        // "#original-context-fat-arrow-function"
+        'original-context-fat-arrow-function': (route) => {
+          console.log(`route: "${route}"`);
+          console.log(`current context: ${this.constructor.name}`);      // RouterWrapper
+          console.log(`router context: ${r1.context.constructor.name}`); // Router
+        },
+
+        // "#original-context-regular-function"
+        'original-context-regular-function': function(route) {
+          console.log(`route: "${route}"`);
+          console.log(`current context: ${this.constructor.name}`);      // Router
+          console.log(`router context: ${r1.context.constructor.name}`); // Router
+        },
       },
-      this, // context
+      // context is not redefined
     );
 
-    this.router.start();
+    const r2 = new Router(
+      {
+        // "#redefined-context-fat-arrow-function"
+        'redefined-context-fat-arrow-function': (route) => {
+          console.log(`route: "${route}"`);
+          console.log(`current context: ${this.constructor.name}`);      // RouterWrapper
+          console.log(`router context: ${r2.context.constructor.name}`); // RouterWrapper
+        },
+
+        // "#redefined-context-regular-function"
+        'redefined-context-regular-function': function(route) {
+          console.log(`route: "${route}"`);
+          console.log(`current context: ${this.constructor.name}`);      // RouterWrapper
+          console.log(`router context: ${r2.context.constructor.name}`); // RouterWrapper
+        },
+      },
+      this, // context of "RouterWrapper"
+    );
+
+    r1.start();
+    r2.start();
   }
 }
 
 const routerWrapper = new RouterWrapper();
 ```
 
-## running tests
+## Setup
 
 ```bash
-# make sure to "yarn install" first
-$ yarn test      # just tests
-$ yarn coverage  # tests with coverage report
-$ yarn run:dev   # run a static server for manual testing
+$ yarn install   # dev deps
+$ yarn test      # run unit tests
+$ yarn coverage  # run unit tests and generate coverage report
+$ yarn run:dev   # run a static server for manual testing (see "./example/" folder)
 ```
 
 [travis-image]: https://img.shields.io/travis/oleksmarkh/micro-conductor/master.svg?style=flat-square
