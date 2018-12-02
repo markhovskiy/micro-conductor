@@ -1,7 +1,44 @@
 import {expect} from 'chai';
 import {spy} from 'sinon';
 
-import Router from './index';
+import Router, {parse} from './index';
+
+describe('parse', () => {
+  it('wraps RegExp keys into matching groups', () => {
+    expect(parse`${/[a]*/}`).to.equal('([a]*)');
+    expect(parse`${/[a]*/}/b`).to.equal('([a]*)/b');
+    expect(parse`a/${/[b]*/}`).to.equal('a/([b]*)');
+    expect(parse`a/${/[b]*/}/c`).to.equal('a/([b]*)/c');
+    expect(parse`foo${/bar/}baz`).to.equal('foo(bar)baz');
+  });
+
+  it('wraps empty keys into wildcard matching groups', () => {
+    expect(parse`${null}`).to.equal('(.*)');
+    expect(parse`${undefined}`).to.equal('(.*)');
+    expect(parse`${null}/a`).to.equal('(.*)/a');
+    expect(parse`a/${null}`).to.equal('a/(.*)');
+    expect(parse`a/${null}/b`).to.equal('a/(.*)/b');
+    expect(parse`${null}/a/${undefined}`).to.equal('(.*)/a/(.*)');
+  });
+
+  it('wraps non-empty keys into literal matching groups', () => {
+    expect(parse`${1}`).to.equal('(1)');
+    expect(parse`${'1'}`).to.equal('(1)');
+    expect(parse`${'a'}`).to.equal('(a)');
+    expect(parse`${'foo'}`).to.equal('(foo)');
+    expect(parse`${'one'}/two`).to.equal('(one)/two');
+    expect(parse`one/${'TWO'}`).to.equal('one/(TWO)');
+    expect(parse`One/${'Two'}/Three`).to.equal('One/(Two)/Three');
+  });
+
+  it('applies different transformations to a single string', () => {
+    expect(
+      parse`and/${1}/and/${'two'}/and/${/[0-9]+/}/and/${/[a-z,A-Z]+/}/and/${null}`,
+    ).to.equal(
+      'and/(1)/and/(two)/and/([0-9]+)/and/([a-z,A-Z]+)/and/(.*)',
+    );
+  });
+});
 
 describe('Router', () => {
   before(() => {

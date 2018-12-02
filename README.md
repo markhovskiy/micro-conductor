@@ -11,15 +11,17 @@ A tiny routing library for the browser. Simple configuration, No dependencies.
 ## Features
 
 - [x] RegExp parametrization in plain strings - every `route` is wrapped into `new RegExp(`^${route}$`)` for matching.
-- [x] RegExp and wildcard parametrization in [tagged templates](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#Tagged_templates) - any non-empty placeholder translates into `(.*)` matching group using `parse` template.
+- [x] RegExp and wildcard parametrization in [tagged templates](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#Tagged_templates) - empty placeholders translate into wildcard matching groups (`${null|undefined}` -> `(.*)`) and non-empty placeholders wrap into literal matching groups (e.g. `${foo}` -> `(foo)`) using `parse` template.
 - [ ] Simple wildcard parametrization using `wildcard` template.
 - [x] Optional context preservation. If not redefined, context of the `Router` instance is used.
 
 ## Limitations
 
-* Works only with hash-based routes (`#plain`).
+* Works only with hash-based routes, browser history API is not involved.
 * No nesting for routes.
-* No composition for routers. It's possible to instantiate multiple instances, but each one will listed for the `hashchange` event individually.
+* No composition for routers. It's possible to have multiple instances, but each one will listen for the `hashchange` event individually.
+
+There limitations could be transformed to feature requests if there's demand.
 
 ## Installation
 

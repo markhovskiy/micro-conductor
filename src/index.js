@@ -14,10 +14,10 @@ function getPatternPart(key) {
 export function parse(strings, ...keys) {
   return keys.reduce(
     (patternParts, key, index) => patternParts.concat(
-      strings[index],
       `(${getPatternPart(key)})`,
+      strings[index + 1],
     ),
-    [],
+    [strings[0]],
   ).join('');
 }
 
