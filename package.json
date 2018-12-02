@@ -1,8 +1,8 @@
 {
   "name": "micro-conductor",
-  "version": "1.0.1",
+  "version": "0.0.1",
   "description": "a routing library for the browser",
-  "main": "index.js",
+  "main": "src/index.js",
   "dependencies": {},
   "devDependencies": {
     "@babel/core": "7.1.6",
@@ -20,7 +20,7 @@
   "scripts": {
     "lint": "eslint {./src/*.js,./example/*.mjs}",
     "test": "mocha --require @babel/register --reporter spec ./src/",
-    "coverage": "nyc npm test",
+    "coverage": "nyc npm test --scripts-prepend-node-path",
     "coveralls": "npm run coverage && nyc report --reporter=text-lcov | coveralls",
     "run:dev": "python3 ./example/server.py"
   },
@@ -29,7 +29,7 @@
     "url": "https://github.com/oleksmarkh/micro-conductor.git"
   },
   "author": "Oleksii Markhovskyi",
-  "license": "MIT",
+  "license": "Unlicense",
   "bugs": {
     "url": "https://github.com/oleksmarkh/micro-conductor/issues"
   },

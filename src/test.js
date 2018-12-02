@@ -46,7 +46,9 @@ describe('Router', () => {
     global.window = {
       addEventListener: () => {},
       removeEventListener: () => {},
-      location: {},
+      location: {
+        hash: '',
+      },
     };
   });
 
@@ -64,8 +66,21 @@ describe('Router', () => {
     });
 
     describe('Router.prototype.start()', () => {
-      describe('respects the "toNavigate" argument', () => {
-        it('.start()', () => {
+      it('subscribes to `hashchange` event on `window` object', () => {
+        const router = new Router();
+
+        global.window.addEventListener = spy();
+        router.start();
+
+        expect(global.window.addEventListener.calledOnce).to.equal(true);
+        expect(global.window.addEventListener.getCall(0).args).to.eql([
+          'hashchange',
+          router.navigate,
+        ]);
+      });
+
+      describe('respects the `toNavigate` argument', () => {
+        it('.start() (`true` as default argument)', () => {
           const router = new Router();
 
           router.navigate = spy();
@@ -88,6 +103,21 @@ describe('Router', () => {
           router.start(false);
           expect(router.navigate.notCalled).to.equal(true);
         });
+      });
+    });
+
+    describe('Router.prototype.stop()', () => {
+      it('unsubscribes from `hashchange` event on `window` object', () => {
+        const router = new Router();
+
+        global.window.removeEventListener = spy();
+        router.stop();
+
+        expect(global.window.removeEventListener.calledOnce).to.equal(true);
+        expect(global.window.removeEventListener.getCall(0).args).to.eql([
+          'hashchange',
+          router.navigate,
+        ]);
       });
     });
   });
@@ -136,7 +166,7 @@ describe('Router', () => {
       // @todo: write a set of test cases against different keys in parsed routes
     });
 
-    it('supports special "notFound" handler', () => {
+    it('supports special `.notFound()` handler', () => {
       const router = new Router();
 
       router.notFound = spy();
@@ -145,12 +175,13 @@ describe('Router', () => {
       expect(router.notFound.calledOnce).to.equal(true);
     });
 
-    it('keeps a context if passed', () => {
+    it('calls route handlers on the `context` object when the second argument passed', () => {
       class Foo {
         constructor() {
           this.router = new Router(
             {
               'bar': this.bar,
+              'baz': this.baz,
             },
             this,
           );
@@ -158,11 +189,17 @@ describe('Router', () => {
       }
 
       Foo.prototype.bar = spy();
+      Foo.prototype.baz = spy();
 
       const foo = new Foo();
+
       window.location.hash = '#bar';
       foo.router.navigate();
       expect(foo.bar.calledOn(foo)).to.equal(true);
+
+      window.location.hash = '#baz';
+      foo.router.navigate();
+      expect(foo.baz.calledOn(foo)).to.equal(true);
     });
   });
 });
