@@ -10,9 +10,11 @@ A tiny routing library for the browser. Simple configuration, No dependencies.
 
 ## Features
 
-- [x] RegExp parametrization in plain strings - every `route` is wrapped into `new RegExp(`^${route}$`)` for matching.
-- [x] RegExp and wildcard parametrization in [tagged templates](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#Tagged_templates) - empty placeholders translate into wildcard matching groups (`${null|undefined}` -> `(.*)`) and non-empty placeholders wrap into literal matching groups (e.g. `${foo}` -> `(foo)`) using `parse` template.
-- [ ] Simple wildcard parametrization using `wildcard` template.
+- [x] RegExp parametrization in plain strings - every `route` is wrapped into `new RegExp('^' + route + '$')` for matching.
+- [ ] Parsing helpers:
+  - [x] `parse` [tagged template](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#Tagged_templates): empty placeholders translate into wildcard matching groups (`${null|undefined}` -> `(.*)`) and non-empty placeholders wrap into literal matching groups (e.g. `${foo}` -> `(foo)`).
+  - [ ] `param()` function: simple wildcard parametrization (`{}` -> `(.*)`).
+- [x] Optional handler for *not found* scenario. Please note that if multiple routers are started and some of them have `.notFound()` handlers, those would be still triggered if a given route isn't matched for those routers but is matched for the others.
 - [x] Optional context preservation. If not redefined, context of the `Router` instance is used.
 
 ## Limitations
@@ -21,7 +23,8 @@ A tiny routing library for the browser. Simple configuration, No dependencies.
 * No nesting for routes.
 * No composition for routers. It's possible to have multiple instances, but each one will listen for the `hashchange` event individually.
 
-There limitations could be transformed to feature requests if there's demand.
+These limitations could be transformed into feature requests if there's demand.
+I.e. there's no technical reason not to support composable routers or nested routes, it's not there yet simply because of YAGNI.
 
 ## Installation
 
