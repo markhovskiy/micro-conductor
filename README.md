@@ -1,9 +1,7 @@
 # micro-conductor
 
   [![license][license-image]][license-url]
-  [![travis][travis-image]][travis-url]
   [![deps][deps-image]][deps-url]
-  [![test coverage][test-coverage-image]][test-coverage-url]
   ![code size][code-size-image]
 
 A tiny routing library for the browser. Simple configuration, no dependencies.
@@ -130,7 +128,7 @@ const routerWrapper = new RouterWrapper();
 ## How to run it?
 
 It's not published to npm yet.
-Just take the [src/index.js](src/index.js) file and copy it to your project.
+Just take the [`src/index.js`](src/index.js) file and copy it to your project.
 
 ## Development setup
 
@@ -143,10 +141,6 @@ $ npm run dev       # run a static server for manual testing (see "./example/" f
 
 [license-image]: https://img.shields.io/github/license/oleksmarkh/micro-conductor.svg?style=flat-square
 [license-url]: https://github.com/oleksmarkh/micro-conductor/blob/master/LICENSE
-[travis-image]: https://img.shields.io/travis/oleksmarkh/micro-conductor/master.svg?style=flat-square
-[travis-url]: https://travis-ci.org/oleksmarkh/micro-conductor
 [deps-image]: https://img.shields.io/david/oleksmarkh/micro-conductor.svg?style=flat-square
 [deps-url]: https://david-dm.org/oleksmarkh/micro-conductor
-[test-coverage-image]: https://img.shields.io/coveralls/github/oleksmarkh/micro-conductor.svg?style=flat-square
-[test-coverage-url]: https://coveralls.io/github/oleksmarkh/micro-conductor
 [code-size-image]: https://img.shields.io/github/languages/code-size/oleksmarkh/micro-conductor.svg?style=flat-square

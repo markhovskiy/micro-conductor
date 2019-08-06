@@ -9,7 +9,6 @@
     "@babel/preset-env": "7.5.5",
     "@babel/register": "7.5.5",
     "chai": "4.2.0",
-    "coveralls": "3.0.5",
     "eslint": "6.1.0",
     "eslint-config-airbnb-base": "13.2.0",
     "eslint-plugin-import": "2.18.2",
@@ -23,7 +22,6 @@
     "lint": "eslint {./src/*.js,./example/*.mjs}",
     "test": "mocha --require @babel/register --reporter spec ./src/",
     "coverage": "nyc npm test --scripts-prepend-node-path",
-    "coveralls": "npm run coverage && nyc report --reporter=text-lcov | coveralls",
     "dev": "python3 ./example/server.py"
   },
   "repository": {
