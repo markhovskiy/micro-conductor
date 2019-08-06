@@ -5,24 +5,26 @@
   "main": "src/index.js",
   "dependencies": {},
   "devDependencies": {
-    "@babel/core": "7.1.6",
-    "@babel/preset-env": "7.1.6",
-    "@babel/register": "7.0.0",
+    "@babel/core": "7.5.5",
+    "@babel/preset-env": "7.5.5",
+    "@babel/register": "7.5.5",
     "chai": "4.2.0",
-    "coveralls": "3.0.2",
-    "eslint": "5.9.0",
-    "eslint-config-airbnb-base": "13.1.0",
-    "eslint-plugin-import": "2.14.0",
-    "mocha": "5.2.0",
-    "nyc": "13.1.0",
-    "sinon": "7.1.1"
+    "coveralls": "3.0.5",
+    "eslint": "6.1.0",
+    "eslint-config-airbnb-base": "13.2.0",
+    "eslint-plugin-import": "2.18.2",
+    "mocha": "6.2.0",
+    "npm-check": "5.9.0",
+    "nyc": "14.1.1",
+    "sinon": "7.3.2"
   },
   "scripts": {
+    "upgrade-interactive": "npm-check --update",
     "lint": "eslint {./src/*.js,./example/*.mjs}",
     "test": "mocha --require @babel/register --reporter spec ./src/",
     "coverage": "nyc npm test --scripts-prepend-node-path",
     "coveralls": "npm run coverage && nyc report --reporter=text-lcov | coveralls",
-    "run:dev": "python3 ./example/server.py"
+    "dev": "python3 ./example/server.py"
   },
   "repository": {
     "type": "git",

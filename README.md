@@ -6,9 +6,15 @@
   [![test coverage][test-coverage-image]][test-coverage-url]
   ![code size][code-size-image]
 
-A tiny routing library for the browser. Simple configuration, No dependencies.
+A tiny routing library for the browser. Simple configuration, no dependencies.
 
-## Features
+## Status
+
+*In progress*, *experimental*.
+
+## How does it look like?
+
+### Features
 
 - [x] RegExp parametrization in plain strings - every `route` is wrapped into `new RegExp('^' + route + '$')` for matching.
 - [ ] Parsing helpers:
@@ -17,7 +23,7 @@ A tiny routing library for the browser. Simple configuration, No dependencies.
 - [x] Optional handler for *not found* scenario. Please note that if multiple routers are started and some of them have `.notFound()` handlers, those would be still triggered if a given route isn't matched for those routers but is matched for the others.
 - [x] Optional context preservation. If not redefined, context of the `Router` instance is used.
 
-## Limitations
+### Limitations
 
 * Works only with hash-based routes, browser history API is not involved.
 * No nesting for routes.
@@ -26,11 +32,7 @@ A tiny routing library for the browser. Simple configuration, No dependencies.
 These limitations could be transformed into feature requests if there's demand.
 I.e. there's no technical reason not to support composable routers or nested routes, it's not there yet simply because of YAGNI.
 
-## Installation
-
-TBD.
-
-## Usage
+### Usage
 
 ```js
 const router = new Router({
@@ -125,13 +127,18 @@ class RouterWrapper {
 const routerWrapper = new RouterWrapper();
 ```
 
-## Setup
+## How to run it?
+
+It's not published to npm yet.
+Just take the [src/index.js](src/index.js) file and copy it to your project.
+
+## Development setup
 
 ```bash
-$ yarn install   # dev deps
-$ yarn test      # run unit tests
-$ yarn coverage  # run unit tests and generate coverage report
-$ yarn run:dev   # run a static server for manual testing (see "./example/" folder)
+$ npm install       # dev deps
+$ npm test          # run unit tests
+$ npm run coverage  # run unit tests and generate coverage report
+$ npm run dev       # run a static server for manual testing (see "./example/" folder)
 ```
 
 [license-image]: https://img.shields.io/github/license/oleksmarkh/micro-conductor.svg?style=flat-square
