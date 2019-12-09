@@ -166,6 +166,11 @@ describe('Router', () => {
       // @todo: write a set of test cases against different keys in parsed routes
     });
 
+    it.skip('calls the first matched handler only', () => {
+      // @todo: write a test cases that expects only the first handler
+      //        to be called if a URL matches multiple routes
+    });
+
     it('supports special `.notFound()` handler', () => {
       const router = new Router();
 

@@ -3,20 +3,6 @@
   "version": "0.0.1",
   "description": "a routing library for the browser",
   "main": "src/index.js",
-  "dependencies": {},
-  "devDependencies": {
-    "@babel/core": "7.5.5",
-    "@babel/preset-env": "7.5.5",
-    "@babel/register": "7.5.5",
-    "chai": "4.2.0",
-    "eslint": "6.1.0",
-    "eslint-config-airbnb-base": "13.2.0",
-    "eslint-plugin-import": "2.18.2",
-    "mocha": "6.2.0",
-    "npm-check": "5.9.0",
-    "nyc": "14.1.1",
-    "sinon": "7.3.2"
-  },
   "scripts": {
     "upgrade-interactive": "npm-check --update",
     "lint": "eslint {./src/*.js,./example/*.mjs}",
@@ -33,5 +19,19 @@
   "bugs": {
     "url": "https://github.com/oleksmarkh/micro-conductor/issues"
   },
-  "homepage": "https://github.com/oleksmarkh/micro-conductor"
+  "homepage": "https://github.com/oleksmarkh/micro-conductor",
+  "devDependencies": {
+    "@babel/core": "7.7.5",
+    "@babel/preset-env": "7.7.6",
+    "@babel/register": "7.7.4",
+    "chai": "4.2.0",
+    "eslint": "6.7.2",
+    "eslint-config-airbnb-base": "14.0.0",
+    "eslint-plugin-import": "2.19.1",
+    "mocha": "6.2.2",
+    "npm-check": "5.9.0",
+    "nyc": "14.1.1",
+    "sinon": "7.5.0"
+  },
+  "dependencies": {}
 }
