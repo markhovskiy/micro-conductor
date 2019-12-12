@@ -166,9 +166,18 @@ describe('Router', () => {
       // @todo: write a set of test cases against different keys in parsed routes
     });
 
-    it.skip('calls the first matched handler only', () => {
-      // @todo: write a test cases that expects only the first handler
-      //        to be called if a URL matches multiple routes
+    it('calls the first matched handler only', () => {
+      const firstHandler = spy();
+      const secondHandler = spy();
+      const router = new Router({
+        'one-1': firstHandler,
+        'one-([0-9])': secondHandler,
+      });
+
+      window.location.hash = '#one-1';
+      router.navigate();
+      expect(firstHandler.calledOnce).to.equal(true);
+      expect(secondHandler.calledOnce).to.equal(false);
     });
 
     it('supports special `.notFound()` handler', () => {

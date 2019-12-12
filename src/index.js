@@ -48,19 +48,17 @@ export default class Router {
 
   navigate() {
     const normalizedHash = this.constructor.normalize(window.location.hash);
-    let found = false;
 
-    Object.entries(this.routes).forEach(([route, go]) => {
+    for (const route in this.routes) {
       const matches = normalizedHash.match(new RegExp(`^${route}$`));
 
       if (matches) {
-        go.apply(this.context, matches);
-        found = true;
+        return this.routes[route].apply(this.context, matches);
       }
-    });
+    }
 
-    if (!found && typeof this.notFound === 'function') {
-      this.notFound.call(this.context, normalizedHash);
+    if (typeof this.notFound === 'function') {
+      return this.notFound.call(this.context, normalizedHash);
     }
   }
 }
